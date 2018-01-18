@@ -1,4 +1,4 @@
-FROM caperneoignis/moodle_docker_apache:7.1
+FROM caperneoignis/moodle_php_apache:7.1
 
 
 USER root
