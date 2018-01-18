@@ -19,6 +19,7 @@ RUN echo "${TZ}" > /etc/timezone \
 RUN apt-get update -qqy \
   && apt-get -qqy install \
     xvfb \
+    debain-keying \
   && rm -rf /var/lib/apt/lists/*
 
 #==============================
@@ -41,9 +42,12 @@ ENV DISPLAY :99.0
 #=========
 # Firefox
 #=========
+RUN echo "deb http://mozilla.debian.net/ jessie-backports firefox-release" >> /etc/apt/sources.list.d/debian-mozilla.list
+RUN wget mozilla.debian.net/pkg-mozilla-archive-keyring_1.1_all.deb \
+  && dpkg -i pkg-mozilla-archive-keyring_1.1_all.deb
+  
 ENV FIREFOX_VERSION 47.0.1
-RUN apt-get update -qqy \
-  && apt-get -qqy --no-install-recommends install firefox \
+RUN apt-get -qqy --no-install-recommends install -t jessie-backports firefox \
   && rm -rf /var/lib/apt/lists/* \
   && wget --no-verbose -O /tmp/firefox.tar.bz2 https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2 \
   && apt-get -y purge firefox \
