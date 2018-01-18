@@ -66,10 +66,6 @@ RUN wget --no-verbose -O /tmp/geckodriver.tar.gz https://github.com/mozilla/geck
   && ln -fs /opt/geckodriver-$GECKODRIVER_VERSION /usr/bin/geckodriver \
   && ln -fs /opt/geckodriver-$GECKODRIVER_VERSION /usr/bin/wires
 
-#========================
-# Selenium Configuration
-#========================
-COPY config.json /opt/selenium/config.json
 
 #first two commands are set in the above image, the 3rd is the selenium specific one.
 ENTRYPOINT [ "/entrypoint.sh", "docker-php-entrypoint", "/opt/bin/entry_point.sh"]
