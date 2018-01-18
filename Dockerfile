@@ -20,6 +20,7 @@ RUN apt-get update -qqy \
   && apt-get -qqy install \
     xvfb \
     debian-keyring \
+	wget \
   && rm -rf /var/lib/apt/lists/*
 
 #==============================
