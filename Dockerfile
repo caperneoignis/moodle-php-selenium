@@ -1,5 +1,4 @@
-FROM caperneoignis/moodle_php_apache:7.1
-
+FROM caperneoignis/moodle-php-apache:7.1
 
 USER root
 
