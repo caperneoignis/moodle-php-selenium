@@ -26,7 +26,6 @@ RUN apt-get update -qqy \
 #==============================
 COPY \
   entry_point.sh \
-  functions.sh \
     /opt/bin/
 RUN chmod +x /opt/bin/entry_point.sh
 
