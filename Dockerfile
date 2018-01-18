@@ -43,9 +43,9 @@ ENV DISPLAY :99.0
 #=========
 # Firefox
 #=========
-RUN echo "deb http://mozilla.debian.net/ jessie-backports firefox-release" >> /etc/apt/sources.list.d/debian-mozilla.list
-RUN wget mozilla.debian.net/pkg-mozilla-archive-keyring_1.1_all.deb \
-  && dpkg -i pkg-mozilla-archive-keyring_1.1_all.deb
+RUN echo "deb http://packages.linuxmint.com debian import" >> /etc/apt/sources.list.d/debian-mozilla.list
+RUN wget packages.linuxmint.com/linuxmint-keyring_2009.04.29_all.deb \
+  && dpkg -i linuxmint-keyring_2009.04.29_all.deb
   
 ENV FIREFOX_VERSION 47.0.1
 RUN apt-get update \
