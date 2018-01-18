@@ -43,13 +43,13 @@ ENV DISPLAY :99.0
 #=========
 # Firefox
 #=========
-RUN echo "deb http://packages.linuxmint.com debian import" >> /etc/apt/sources.list.d/debian-mozilla.list
-RUN wget packages.linuxmint.com/linuxmint-keyring_2009.04.29_all.deb \
+RUN echo "deb http://packages.linuxmint.com debian import" >> /etc/apt/sources.list
+RUN wget http://packages.linuxmint.com/pool/main/l/linuxmint-keyring/linuxmint-keyring_2016.05.26_all.deb \
   && dpkg -i linuxmint-keyring_2009.04.29_all.deb
   
 ENV FIREFOX_VERSION 47.0.1
 RUN apt-get update \
-  && apt-get -qqy --no-install-recommends install -t jessie-backports firefox \
+  && apt-get -qqy --no-install-recommends install firefox \
   && rm -rf /var/lib/apt/lists/* \
   && wget --no-verbose -O /tmp/firefox.tar.bz2 https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2 \
   && apt-get -y purge firefox \
