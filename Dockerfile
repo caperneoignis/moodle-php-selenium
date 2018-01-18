@@ -19,7 +19,7 @@ RUN echo "${TZ}" > /etc/timezone \
 RUN apt-get update -qqy \
   && apt-get -qqy install \
     xvfb \
-    debain-keyring \
+    debian-keyring \
   && rm -rf /var/lib/apt/lists/*
 
 #==============================
