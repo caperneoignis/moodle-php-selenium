@@ -29,13 +29,14 @@ if [[ "${NUM_OF_SELENIUMS}" != "" ]]; then
 else
    NUM_OF_SELENIUMS=1;
 fi
-NUM_OF_SELENIUMS=$((4444 + NUM_OF_SELENIUMS));
+NUM_OF_SELENIUMS=$((SELENIUM_PORT + NUM_OF_SELENIUMS));
 #we don't want to see the output we just want these to be up. 
-for ((port=4444; port < NUM_OF_SELENIUMS; port++))
+for ((port=SELENIUM_PORT; port < NUM_OF_SELENIUMS; port++))
 do
 xvfb-run --auto-servernum --server-args="-screen 0 $GEOMETRY -ac +extension RANDR" \
   java -jar /opt/selenium/selenium-server-standalone.jar \
   -port $port  > /dev/null 2>&1 &
+  echo "selenium is running on port: ${port} with pid $!"
 done
 
 if [[ $# -eq 1 && $1 == "bash" ]]; then
