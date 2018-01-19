@@ -63,16 +63,13 @@ ENV DISPLAY :99.0
 #=========
 # Firefox
 #=========
-RUN echo "deb http://packages.linuxmint.com debian import" >> /etc/apt/sources.list
-RUN wget http://packages.linuxmint.com/pool/main/l/linuxmint-keyring/linuxmint-keyring_2016.05.26_all.deb \
-  && dpkg -i linuxmint-keyring_2016.05.26_all.deb
   
 ENV FIREFOX_VERSION 47.0.1
 RUN apt-get update \
-  && apt-get -qq --force-yes --no-install-recommends install firefox \
+  && apt-get -qq --force-yes --no-install-recommends install firefox-esr \
   && rm -rf /var/lib/apt/lists/* \
   && wget --no-verbose -O /tmp/firefox.tar.bz2 https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2 \
-  && apt-get -y purge firefox \
+  && apt-get -y purge firefox-esr \
   && rm -rf /opt/firefox \
   && tar -C /opt -xjf /tmp/firefox.tar.bz2 \
   && rm /tmp/firefox.tar.bz2 \
@@ -102,7 +99,7 @@ RUN chmod +x /opt/bin/entry_point.sh
 #overwrite old configs with custom configs with export Document root
 COPY configs/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 COPY configs/apache2.conf /etc/apache2/apache2.conf
-
+COPY config.json /opt/selenium/config.json
 #set work directory to be the root system, since CI/CD like gitlab run from custom directory in build image. 
 WORKDIR /
 

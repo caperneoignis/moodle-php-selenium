@@ -35,7 +35,7 @@ for ((port=SELENIUM_PORT; port < NUM_OF_SELENIUMS; port++))
 do
 xvfb-run --auto-servernum --server-args="-screen 0 $GEOMETRY -ac +extension RANDR" \
   java -jar /opt/selenium/selenium-server-standalone.jar \
-  -port $port  > /dev/null 2>&1 &
+  -port $port   &
   echo "selenium is running on port: ${port} with pid $!"
 done
 
