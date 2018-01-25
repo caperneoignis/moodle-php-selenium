@@ -99,7 +99,7 @@ RUN chmod +x /opt/bin/entry_point.sh
 #overwrite old configs with custom configs with export Document root
 COPY configs/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 COPY configs/apache2.conf /etc/apache2/apache2.conf
-COPY config.json /opt/selenium/config.json
+
 #set work directory to be the root system, since CI/CD like gitlab run from custom directory in build image. 
 WORKDIR /
 
