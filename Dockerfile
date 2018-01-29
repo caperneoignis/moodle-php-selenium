@@ -19,8 +19,7 @@ RUN echo "${TZ}" > /etc/timezone \
 #==========================
 RUN apt-get update -qqy \
   && apt-get install -qqy \
-  openjdk-7-jdk \
-  openjdk-7-jre
+  openjdk-8-jre-headless \
 
 #========================
 # Miscellaneous packages
@@ -33,16 +32,18 @@ RUN apt-get update -qqy \
     sudo \
     unzip \
     wget \
+	tzdata \
 	debian-keyring \
   && rm -rf /var/lib/apt/lists/* 
 
-RUN sed -i 's/securerandom\.source=file:\/dev\/random/securerandom\.source=file:\/dev\/urandom/' /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/security/java.security
+RUN sed -i 's/securerandom\.source=file:\/dev\/random/securerandom\.source=file:\/dev\/urandom/' /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/java.security
 
 #==============
 # VNC, java and Xvfb 
 #==============
 RUN apt-get update -qqy \
   && apt-get -qqy install \
+    locales \
     xvfb \
   && rm -rf /var/lib/apt/lists/*
 

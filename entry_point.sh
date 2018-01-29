@@ -26,9 +26,9 @@ sed -i "s#%%APACHE_WEB_ROOT%%#${APACHE_WEB_ROOT}#" /etc/apache2/apache2.conf
 	
 export GEOMETRY="$SCREEN_WIDTH""x""$SCREEN_HEIGHT""x""$SCREEN_DEPTH"
 
-function get_server_num() {
-  echo $(echo $DISPLAY | sed -r -e 's/([^:]+)?:([0-9]+)(\.[0-9]+)?/\2/')
-}
+if [[ "${JAVA_OPTS}" == '' ]]; then
+  JAVA_OPTS="-Xms128m -Xmx512m"
+fi
 
 SELENIUM_PORT=4444;
 
@@ -45,7 +45,7 @@ NUM_OF_SELENIUMS=$((SELENIUM_PORT + NUM_OF_SELENIUMS));
 for ((port=SELENIUM_PORT; port < NUM_OF_SELENIUMS; port++))
 do
 xvfb-run --error-file=${LOG_LOC} --auto-servernum --server-args="-screen 0 $GEOMETRY -ac +extension RANDR" \
-  java -jar /opt/selenium/selenium-server-standalone.jar \
+  java ${JAVA_OPTS} -jar /opt/selenium/selenium-server-standalone.jar \
   -port $port > /dev/null 2>&1 &
   echo "selenium is running on port: ${port} with pid $!"
 done
