@@ -12,6 +12,14 @@ else
     APACHE_WEB_ROOT="/var/www/html"    
 fi
 
+if [[ "${LOG_LOC}" == true ]]; then 
+  LOG_LOC="${APACHE_WEB_ROOT}/selenium.log"
+  echo "Error log will be saved here ${LOG_LOC}"
+else
+  LOG_LOC="/dev/null"
+  echo "No log will be saved"
+fi
+  
 sed -i "s#<<APACHE_WEB_ROOT>>#${APACHE_WEB_ROOT}#" /etc/apache2/sites-enabled/000-default.conf
 sed -i "s#%%APACHE_WEB_ROOT%%#${APACHE_WEB_ROOT}#" /etc/apache2/apache2.conf
 	
@@ -29,13 +37,16 @@ if [[ "${NUM_OF_SELENIUMS}" != "" ]]; then
 else
    NUM_OF_SELENIUMS=1;
 fi
+
+rm -f /tmp/.X*lock
+
 NUM_OF_SELENIUMS=$((SELENIUM_PORT + NUM_OF_SELENIUMS));
 #we don't want to see the output we just want these to be up. 
 for ((port=SELENIUM_PORT; port < NUM_OF_SELENIUMS; port++))
 do
-xvfb-run --auto-servernum --server-args="-screen 0 $GEOMETRY -ac +extension RANDR" \
+xvfb-run --error-file=${LOG_LOC} --auto-servernum --server-args="-screen 0 $GEOMETRY -ac +extension RANDR" \
   java -jar /opt/selenium/selenium-server-standalone.jar \
-  -port $port  > /dev/null 2>&1 &
+  -port $port > /dev/null 2>&1 &
   echo "selenium is running on port: ${port} with pid $!"
 done
 

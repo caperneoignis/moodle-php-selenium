@@ -35,6 +35,8 @@ RUN apt-get update -qqy \
 	debian-keyring \
   && rm -rf /var/lib/apt/lists/* 
 
+RUN sed -i 's/securerandom\.source=file:\/dev\/random/securerandom\.source=file:\/dev\/urandom/' /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/security/java.security
+
 #==============
 # VNC, java and Xvfb 
 #==============
