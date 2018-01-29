@@ -4,7 +4,8 @@ USER root
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
-
+//fixes issue with chrome and potentially speeds up system. 
+ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 #===================
 # Timezone settings
 # Possible alternative: https://github.com/docker/docker/issues/3359#issuecomment-32150214
