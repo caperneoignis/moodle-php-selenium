@@ -19,7 +19,7 @@ RUN echo "${TZ}" > /etc/timezone \
 #==========================
 RUN apt-get update -qqy \
   && apt-get install -qqy \
-  openjdk-8-jre-headless \
+  openjdk-8-jre-headless 
 
 #========================
 # Miscellaneous packages
