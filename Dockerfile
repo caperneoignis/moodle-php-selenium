@@ -4,7 +4,7 @@ USER root
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
-//fixes issue with chrome and potentially speeds up system. 
+#//fixes issue with chrome and potentially speeds up system. 
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 #===================
 # Timezone settings
