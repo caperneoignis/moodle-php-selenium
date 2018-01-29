@@ -4,6 +4,11 @@
 
 umask 022
 
+function get_server_num() {
+  echo $(echo $DISPLAY | sed -r -e 's/([^:]+)?:([0-9]+)(\.[0-9]+)?/\2/')
+}
+
+
 #do a string replace for configuration files for the web root. 
 if [[ "${APACHE_WEB_ROOT}" != "" ]]; then
     echo "web site will be set to ${APACHE_WEB_ROOT}"
@@ -40,13 +45,15 @@ fi
 
 rm -f /tmp/.X*lock
 
+SERVERNUM=$(get_server_num);
+
 NUM_OF_SELENIUMS=$((SELENIUM_PORT + NUM_OF_SELENIUMS));
 #we don't want to see the output we just want these to be up. 
 for ((port=SELENIUM_PORT; port < NUM_OF_SELENIUMS; port++))
 do
-xvfb-run --error-file=${LOG_LOC} --auto-servernum --server-args="-screen 0 $GEOMETRY -ac +extension RANDR" \
+xvfb-run --auto-servernum -n ${SERVERNUM} --server-args="-screen 0 $GEOMETRY -ac +extension RANDR" \
   java ${JAVA_OPTS} -jar /opt/selenium/selenium-server-standalone.jar \
-  -port $port > /dev/null 2>&1 &
+  -port $port >> ${LOG_LOC} 2>&1 &
   echo "selenium is running on port: ${port} with pid $!"
 done
 
