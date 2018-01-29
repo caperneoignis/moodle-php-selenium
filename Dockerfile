@@ -14,12 +14,15 @@ ENV TZ "US/Eastern"
 RUN echo "${TZ}" > /etc/timezone \
   && dpkg-reconfigure --frontend noninteractive tzdata
 
+  
+RUN echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/sources.list.d/jessie-backports.list
 #==========================
 # install java for selenium
 #==========================
 RUN apt-get update -qqy \
-  && apt-get install -qqy \
-  openjdk-8-jre-headless 
+  && apt-get install -qqy -t jessie-backports \
+  openjdk-8-jre-headless \
+  ca-certificates-java  
 
 #========================
 # Miscellaneous packages
@@ -28,7 +31,6 @@ RUN apt-get update -qqy \
 RUN apt-get update -qqy \
   && apt-get -qqy --no-install-recommends install \
     bzip2 \
-    ca-certificates \
     sudo \
     unzip \
     wget \
