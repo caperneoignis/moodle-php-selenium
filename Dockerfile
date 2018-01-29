@@ -56,6 +56,8 @@ RUN  mkdir -p /opt/selenium \
   && wget --no-verbose \
   https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar \
   -O /opt/selenium/selenium-server-standalone.jar
+  
+COPY config.json /opt/selenium/config.json
 #============================
 # Some configuration options
 #============================
@@ -81,6 +83,7 @@ RUN apt-get update \
   && mv /opt/firefox /opt/firefox-$FIREFOX_VERSION \
   && ln -fs /opt/firefox-$FIREFOX_VERSION/firefox /usr/bin/firefox
 
+ 
 #============
 # GeckoDriver
 #============
