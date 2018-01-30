@@ -29,7 +29,7 @@ export GEOMETRY="$SCREEN_WIDTH""x""$SCREEN_HEIGHT""x""$SCREEN_DEPTH"
 SELENIUM_PORT=4444;
 
 if [[ "${NUM_OF_SELENIUMS}" != "" ]]; then
-	echo "${NUM_OF_SELENIUMS} will run"
+	echo "${NUM_OF_SELENIUMS} selenium servers will run"
 else
    NUM_OF_SELENIUMS=1;
 fi
@@ -43,7 +43,7 @@ cd ${APACHE_WEB_ROOT}
 #we don't want to see the output we just want these to be up. 
 for ((port=SELENIUM_PORT; port < SELENIUM_COUNT; port++))
 do
-xvfb-run --auto-servernum --server-args="-screen 0 $GEOMETRY -ac +extension RANDR" \
+sudo xvfb-run --auto-servernum --server-args="-screen 0 $GEOMETRY -ac +extension RANDR" \
   java ${JAVA_OPTS} -jar /opt/selenium/selenium-server-standalone.jar ${SE_OPTS} \
   -port $port >> ${LOG_LOC} 2>&1 &
   echo "selenium is running on port: ${port} with pid $!"
