@@ -40,8 +40,8 @@ else
 fi
 
 rm -f /tmp/.X*lock
-
-
+ 
+chmod -R 777 ${APACHE_WEB_ROOT}
 NUM_OF_SELENIUMS=$((SELENIUM_PORT + NUM_OF_SELENIUMS));
 #need to change directory to apache web root so we have a direct connection and not waiting on page loads. 
 cd ${APACHE_WEB_ROOT}
