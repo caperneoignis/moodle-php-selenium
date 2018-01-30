@@ -48,6 +48,8 @@ rm -f /tmp/.X*lock
 SERVERNUM=$(get_server_num);
 
 NUM_OF_SELENIUMS=$((SELENIUM_PORT + NUM_OF_SELENIUMS));
+#need to change directory to apache web root so we have a direct connection and not waiting on page loads. 
+cd ${APACHE_WEB_ROOT}
 #we don't want to see the output we just want these to be up. 
 for ((port=SELENIUM_PORT; port < NUM_OF_SELENIUMS; port++))
 do
