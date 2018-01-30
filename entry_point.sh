@@ -45,7 +45,7 @@ cd ${APACHE_WEB_ROOT}
 for ((port=SELENIUM_PORT; port < SELENIUM_COUNT; port++))
 do
 xvfb-run --auto-servernum --server-args="-screen 0 $GEOMETRY -ac +extension RANDR" \
-  java ${JAVA_OPTS} -jar /opt/selenium/selenium-server-standalone.jar \
+  java ${JAVA_OPTS} -jar /opt/selenium/selenium-server-standalone.jar ${SE_OPTS} \
   -port $port >> ${LOG_LOC} 2>&1 &
   echo "selenium is running on port: ${port} with pid $!"
 done
