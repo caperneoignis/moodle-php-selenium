@@ -27,10 +27,6 @@ sed -i "s#%%APACHE_WEB_ROOT%%#${APACHE_WEB_ROOT}#" /etc/apache2/apache2.conf
 	
 export GEOMETRY="$SCREEN_WIDTH""x""$SCREEN_HEIGHT""x""$SCREEN_DEPTH"
 
-if [[ "${JAVA_OPTS}" == '' ]]; then
-  JAVA_OPTS="-Xms128m -Xmx512m"
-fi
-
 SELENIUM_PORT=4444;
 
 if [[ "${NUM_OF_SELENIUMS}" != "" ]]; then
@@ -42,11 +38,11 @@ fi
 rm -f /tmp/.X*lock
  
 chmod -R 777 ${APACHE_WEB_ROOT}
-NUM_OF_SELENIUMS=$((SELENIUM_PORT + NUM_OF_SELENIUMS));
+SELENIUM_COUNT=$((SELENIUM_PORT + NUM_OF_SELENIUMS));
 #need to change directory to apache web root so we have a direct connection and not waiting on page loads. 
 cd ${APACHE_WEB_ROOT}
 #we don't want to see the output we just want these to be up. 
-for ((port=SELENIUM_PORT; port < NUM_OF_SELENIUMS; port++))
+for ((port=SELENIUM_PORT; port < SELENIUM_COUNT; port++))
 do
 xvfb-run --auto-servernum --server-args="-screen 0 $GEOMETRY -ac +extension RANDR" \
   java ${JAVA_OPTS} -jar /opt/selenium/selenium-server-standalone.jar \
