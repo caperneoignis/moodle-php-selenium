@@ -13,8 +13,7 @@ else
     APACHE_WEB_ROOT="/var/www/html"    
 fi
 
-if [[ "${LOG_LOC}" == true ]]; then 
-  LOG_LOC="${APACHE_WEB_ROOT}/selenium.log"
+if [[ "${LOG_LOC}" != "" ]]; then 
   echo "Error log will be saved here ${LOG_LOC}"
 else
   LOG_LOC="/dev/null"
